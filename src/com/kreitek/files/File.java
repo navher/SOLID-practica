@@ -1,18 +1,25 @@
 package com.kreitek.files;
 
-import com.kreitek.files.error.InvalidFileFormatException;
+import com.kreitek.interfaces.FileSystemFile;
+import com.kreitek.interfaces.FileSystemItem;
 
 import java.util.List;
 
-public  class File extends FileSystemItemBase implements FileSystemItem {
+public  class File extends FileSystemItemBase implements FileSystemFile {
 
     private int size = 0;
     private boolean isOpen = false;
     private int position = 0;
 
-    public File(FileSystemItem parent, String name) {
+    public File(Directory parent, String name) {
         super(parent, name);
     }
+
+    @Override
+    public int getSize() {
+        return size;
+    }
+
 
     @Override
     public String getExtension() {
@@ -25,29 +32,14 @@ public  class File extends FileSystemItemBase implements FileSystemItem {
     }
 
     @Override
-    public List<FileSystemItem> listFiles() {
-        throw new UnsupportedOperationException("No es válido para ficheros");
-    }
-
-    @Override
-    public void addFile(FileSystemItem file) {
-        throw new UnsupportedOperationException("No es válido para ficheros");
-    }
-
-    @Override
-    public void removeFile(FileSystemItem file) {
-        throw new UnsupportedOperationException("No es válido para ficheros");
-    }
-
-    @Override
-    public int getSize() {
-        return size;
-    }
-
-    @Override
     public void open() {
         isOpen = true;
         // Aquí vendría código que actualizaría también this.size
+    }
+
+    @Override
+    public void close() {
+        isOpen = false;
     }
 
     @Override
@@ -78,11 +70,4 @@ public  class File extends FileSystemItemBase implements FileSystemItem {
         size += buffer.length;
         position += buffer.length;
     }
-
-    @Override
-    public void close() {
-        isOpen = false;
-    }
-
-
 }

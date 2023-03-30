@@ -1,7 +1,7 @@
 package com.kreitek.service;
 
 import com.kreitek.files.File;
-import com.kreitek.files.FileSystemItem;
+import com.kreitek.interfaces.FileSystemItem;
 import com.kreitek.files.error.InvalidFileFormatException;
 import com.kreitek.interfaces.FileConverter;
 
@@ -20,7 +20,7 @@ public class FileConverterMp3ToWavImpl implements FileConverter {
             nameWithoutExtension = file.getName().substring(0, indexOfLastDot);
         }
         String newFileName = nameWithoutExtension + ".wav";
-        FileSystemItem result = new File(file.getParent(), newFileName);
+        File result = new File(file.getParent(), newFileName);
         result.open();
         // Lógica de conversión de mp3 a wav. Se lee de este fichero y se escribe en result
         result.close();
