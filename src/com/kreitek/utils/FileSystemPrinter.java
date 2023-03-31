@@ -14,7 +14,7 @@ public class FileSystemPrinter {
 
     public static void print(FileSystemItem item, int nivel) {
         String indentation = "\t".repeat(nivel);
-        String message = String.format("%s%s = %d bytes", indentation, item.getFullPath(), FileManager.calculateSize(item));
+        String message = String.format("%s%s = %d bytes", indentation, item.getFullPath(), item.getSize());
         System.out.println(message);
 
         if (item instanceof Directory) {

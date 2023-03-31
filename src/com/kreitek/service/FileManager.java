@@ -7,30 +7,11 @@ import com.kreitek.interfaces.FileSystemItem;
 import java.util.List;
 
 public class FileManager {
-
-    public static int calculateSize(FileSystemItem fileSystemItem) {
-        int totalSize = 0;
-
-        if (fileSystemItem instanceof File) {
-            totalSize = fileSystemItem.getSize();
-        } else if (fileSystemItem instanceof Directory) {
-            for (FileSystemItem item : ((Directory) fileSystemItem).listFiles()) {
-                totalSize += calculateSize(item);
-            }
-        }
-
-        return totalSize;
-    }
-
     public static int calculateSize(List<FileSystemItem> files) {
         int totalSize = 0;
 
         for(FileSystemItem item : files) {
-            if (item instanceof File) {
-                totalSize += item.getSize();
-            } else if (item instanceof Directory) {
-                totalSize += calculateSize(((Directory) item).listFiles());
-            }
+            totalSize += item.getSize();
         }
 
         return totalSize;
