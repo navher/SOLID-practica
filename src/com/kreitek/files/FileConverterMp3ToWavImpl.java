@@ -1,15 +1,17 @@
-package com.kreitek.service;
+package com.kreitek.files;
 
 import com.kreitek.files.File;
 import com.kreitek.interfaces.FileSystemItem;
 import com.kreitek.files.error.InvalidFileFormatException;
 import com.kreitek.interfaces.FileConverter;
 
-public class FileConverterWavToMp3Impl implements FileConverter {
+public class FileConverterMp3ToWavImpl implements FileConverter {
+
     @Override
     public FileSystemItem convert(File file) {
-        if (!"wav".equalsIgnoreCase(file.getExtension())) {
-            throw new InvalidFileFormatException("El fichero debe ser wav");
+
+        if (!"mp3".equalsIgnoreCase(file.getExtension())) {
+            throw new InvalidFileFormatException("El fichero debe ser mp3");
         }
 
         int indexOfLastDot = file.getName().lastIndexOf(".");
@@ -17,11 +19,12 @@ public class FileConverterWavToMp3Impl implements FileConverter {
         if (indexOfLastDot > 0) {
             nameWithoutExtension = file.getName().substring(0, indexOfLastDot);
         }
-        String newFileName = nameWithoutExtension + ".mp3";
+        String newFileName = nameWithoutExtension + ".wav";
         File result = new File(file.getParent(), newFileName);
         result.open();
-        // Lógica de conversión de wav a mp3. Se lee de este fichero y se escribe en result
+        // Lógica de conversión de mp3 a wav. Se lee de este fichero y se escribe en result
         result.close();
         return result;
+
     }
 }
